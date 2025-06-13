@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Оплата начисления: {{ charge.service.name }} за {{ charge.period|date:'m.Y' }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Оплатить</button>
+  <a href="{% url 'charge-detail' charge.id %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>История платежей</h2>
+{% if payments %}
+  <table class="table">
+    <thead><tr><th>Дата</th><th>Счёт</th><th>Услуга</th><th>Сумма</th></tr></thead>
+    <tbody>
+      {% for pay in payments %}
+        <tr>
+          <td>{{ pay.date|date:'d.m.Y H:i' }}</td>
+          <td>{{ pay.charge.account.number }}</td>
+          <td>{{ pay.charge.service.name }}</td>
+          <td>{{ pay.amount }} ₽</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>Нет платежей.</p>
+{% endif %}
+{% endblock %}

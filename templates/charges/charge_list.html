@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'charges-receipt-period' %}?account={{ account.id }}&period={{ period }}" class="btn btn-outline-secondary">Скачать квитанцию за период</a>
+
+<h2>Начисления для счёта № {{ account.number }} за {{ period }}</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Услуга</th>
+      <th>Сумма (₽)</th>
+      <th>Статус</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ch in charges %}
+      <tr>
+        <td>{{ ch.service.name }}</td>
+        <td>{{ ch.amount }}</td>
+        <td>
+          {% if ch.status == 'paid' %}
+            <span class="badge bg-success">Оплачено</span>
+          {% elif ch.status == 'partial' %}
+            <span class="badge bg-warning">Частично</span>
+          {% else %}
+            <span class="badge bg-secondary">Ожидание</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'charge-detail' ch.id %}" class="btn btn-sm btn-info">Подробнее</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p><strong>Итого:</strong> {{ total }} ₽</p>
+<a href="{% url 'payment-pay-period' %}?account={{ account.id }}&period={{ period }}" class="btn btn-success">Оплатить все услуги за период</a>
+<a href="{% url 'account-detail' account.id %}" class="btn btn-secondary">Назад к счету</a>
+{% endblock %}

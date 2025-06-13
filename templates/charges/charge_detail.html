@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Начисление: {{ charge.service.name }} за {{ charge.period|date:"m.Y" }}</h2>
+<p><strong>Сумма:</strong> {{ charge.amount }} ₽</p>
+<p><strong>Статус:</strong> {{ charge.get_status_display }}</p>
+{% if charge.status != 'paid' %}
+  <a href="{% url 'payment-create' charge.id %}" class="btn btn-primary">Оплатить</a>
+{% endif %}
+<a href="{% url 'charge-period-select' %}" class="btn btn-secondary">Назад к списку начислений</a>
+{% endblock %}

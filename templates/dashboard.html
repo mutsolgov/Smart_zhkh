@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Добро пожаловать, {{ user.get_username }}!</h1>
+<p>Это ваша панель управления Smart ЖКХ.</p>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Лицевые счета</h5>
+                <p class="card-text">Просмотр и управление лицевыми счетами.</p>
+                <a href="{% url 'account-list' %}" class="btn btn-outline-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Начисления</h5>
+                <p class="card-text">История и актуальные начисления.</p>
+                <a href="{% url 'charge-period-select' %}" class="btn btn-outline-success">Перейти</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Платежи</h5>
+                <p class="card-text">Платежи и квитанция.</p>
+                <a href="{% url 'payment-list' %}" class="btn btn-outline-secondary">Перейтити</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

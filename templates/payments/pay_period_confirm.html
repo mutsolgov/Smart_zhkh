@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Оплатить все услуги за период {{ period }} для счёта № {{ account.number }}</h2>
+<p><strong>Итого к оплате:</strong> {{ total }} ₽</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="account" value="{{ account.id }}">
+  <input type="hidden" name="period" value="{{ period }}">
+  <button type="submit" class="btn btn-success">Подтвердить оплату</button>
+  <a href="{% url 'charge-list' %}?account={{ account.id }}&period={{ period }}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

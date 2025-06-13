@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Счёт № {{ account.number }}</h2>
+  <p><strong>Адрес:</strong> {{ account.address }}</p>
+  <p><strong>Площадь:</strong> {{ account.area }} м²</p>
+  <p><strong>Количество проживающих:</strong> {{ account.residents_count }}</p>
+  <p><strong>УК:</strong> {{ account.managing_company }}</p>
+  <p><strong>Владелец:</strong> {{ account.owner_full_name }}</p>
+  {% if account.is_active %}
+    <span class="badge bg-success">Активный</span>
+  {% endif %}
+  <hr>
+  <h3>Начисления и платежи</h3>
+  <a href="{% url 'charge-list' %}?account={{ account.id }}" class="btn btn-primary">Перейти к начислениям</a>
+{% endblock %}
