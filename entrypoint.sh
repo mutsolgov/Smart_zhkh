@@ -39,6 +39,18 @@ python manage.py migrate --noinput
 echo "Collect static files"
 python manage.py collectstatic --noinput
 
+# Создание суперпользователя, если его нет
+echo "Создание суперпользователя (если отсутствует)..."
+python manage.py shell << END
+from django.contrib.auth import get_user_model
+User = get_user_model()
+if not User.objects.filter(username='admin').exists():
+    User.objects.create_superuser('admin', 'admin@example.com', 'admin')
+    print("Суперпользователь admin создан.")
+else:
+    print("Суперпользователь admin уже существует.")
+END
+
 # Запуск Gunicorn
 echo "Starting Gunicorn"
 # Если вы хотите использовать настройки Gunicorn, можно здесь добавить параметры: --workers, --bind, др.
